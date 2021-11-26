@@ -1,0 +1,14 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net6.0-android</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(TargetFramework)' == 'net6.0-android'">
+	  <SupportedOSPlatformVersion>21</SupportedOSPlatformVersion>
+	  <RootNamespace>Microsoft.Maui.Platform.Channels.Android</RootNamespace>
+  </PropertyGroup>
+  <ItemGroup Condition="'$(TargetFramework)' == 'net6.0-android'">
+    <AndroidLibrary Include="..\Platforms\Android\platformchannels\build\outputs\aar\com.microsoft.maui.platform.channels.aar" Link="com.microsoft.maui.platform.channels.aar" />
+  </ItemGroup>
+</Project>
