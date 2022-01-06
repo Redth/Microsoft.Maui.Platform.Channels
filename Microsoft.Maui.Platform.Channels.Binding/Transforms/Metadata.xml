@@ -7,5 +7,4 @@
   <remove-node path="/api/package[@name='android.support.v4.content']/class[@name='CursorLoader']/method[@name='loadInBackground']" />
   -->
 	<attr path="/api/package[@name='com.microsoft.maui.platform.channels']" name="managedName">Microsoft.Maui.Platform.Channels.Android</attr>
-	<attr path="/api/package[@name='com.microsoft.maui.platform.channels.internal']" name="managedName">Microsoft.Maui.Platform.Channels.Android.Internal</attr>
 </metadata>

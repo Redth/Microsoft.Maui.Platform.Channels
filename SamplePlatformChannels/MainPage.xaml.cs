@@ -1,18 +1,23 @@
 ﻿namespace SamplePlatformChannels;
 public partial class MainPage : ContentPage
 {
-    int count = 0;
-
+    
     public MainPage()
     {
         InitializeComponent();
+        
     }
 
-    private void OnCounterClicked(object sender, EventArgs e)
+    void Button_Clicked(System.Object sender, System.EventArgs e)
     {
-        count++;
-        CounterLabel.Text = $"Current count: {count}";
+        
 
-        SemanticScreenReader.Announce(CounterLabel.Text);
+        var active = (bool)pcv.SendToPlatform("start");
+
+        if (active)
+            pcv.SendToPlatform("stop");
+        else
+            pcv.SendToPlatform("start");
     }
+
 }

@@ -3,29 +3,18 @@
 	<PropertyGroup>
 		<TargetFrameworks>net6.0-android</TargetFrameworks>
 		<ImplicitUsings>enable</ImplicitUsings>
+		<UseMaui>True</UseMaui>
+		<SingleProject>True</SingleProject>
 
 		<SupportedOSPlatformVersion Condition="'$(TargetFramework)' == 'net6.0-ios'">14.2</SupportedOSPlatformVersion>
 		<SupportedOSPlatformVersion Condition="'$(TargetFramework)' == 'net6.0-maccatalyst'">14.0</SupportedOSPlatformVersion>
 		<SupportedOSPlatformVersion Condition="$(TargetFramework.Contains('-windows'))">10.0.17763.0</SupportedOSPlatformVersion>
 		<TargetPlatformMinVersion Condition="$(TargetFramework.Contains('-windows'))">10.0.17763.0</TargetPlatformMinVersion>
 
-		<EnableDefaultCompileItems>False</EnableDefaultCompileItems>
 	</PropertyGroup>
 
-	<PropertyGroup Condition="'$(TargetFramework)' == 'net6.0-android'">
-		<SupportedOSPlatformVersion Condition="'$(TargetFramework)' == 'net6.0-android'">21.0</SupportedOSPlatformVersion>
-	</PropertyGroup>
-	
 	<ItemGroup>
 	  <ProjectReference Include="..\Microsoft.Maui.Platform.Channels.Binding\Microsoft.Maui.Platform.Channels.Binding.csproj" />
-	</ItemGroup>
-
-	<ItemGroup>
-		<Compile Include="*.shared.cs" />
-	</ItemGroup>
-
-	<ItemGroup Condition="'$(TargetFramework)' == 'net6.0-android'">
-		<Compile Include="*.android.cs" />
 	</ItemGroup>
 
 </Project>
