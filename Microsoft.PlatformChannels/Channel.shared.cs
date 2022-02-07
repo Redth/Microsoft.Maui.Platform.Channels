@@ -27,7 +27,8 @@ namespace Microsoft.PlatformChannels
                 platformParams.Add(platformParam);
             }
 
-            return this.ToDotNetObject(PlatformChannel.HandleMessageFromMaui(messageId, platformParams.ToArray()));
+            var result = PlatformChannel.HandleMessageFromMaui(messageId, platformParams.ToArray());
+            return this.ToDotNetObject(result);
         }
     }
 }
