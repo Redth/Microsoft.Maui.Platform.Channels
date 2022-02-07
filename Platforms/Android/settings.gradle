@@ -7,6 +7,5 @@ dependencyResolutionManagement {
     }
 }
 rootProject.name = "Microsoft.Maui.Platform.Channels"
-include ':app'
 include ':platformchannels'
 include ':sample'
