@@ -15,9 +15,21 @@ public partial class MainPage : ContentPage
 
         var mathChannel = channelService.GetOrCreateChannel("math");
 
-        
-        if (double.TryParse(mathChannel.SendToPlatform("add", new[] { 5.0d, 3.0d }).ToString(), out var dbl))
-            Console.WriteLine("math -> add: " + dbl);
+        var entered = entryNumbers.Text.Split(' ', ',', ';');
+
+        var items = new List<object>();
+
+        foreach (var n in entered)
+        {
+            if (double.TryParse(n, out var ndbl))
+                items.Add(ndbl);
+        }
+
+        var itemsArr = items.ToArray();
+        var result = mathChannel.SendToPlatform("add", itemsArr);
+
+        if (result is double dbl)
+            labelResult.Text = dbl.ToString();
     }
 
 }

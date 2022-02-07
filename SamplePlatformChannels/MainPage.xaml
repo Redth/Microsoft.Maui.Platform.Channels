@@ -4,8 +4,13 @@
              x:Class="SamplePlatformChannels.MainPage"
              BackgroundColor="{DynamicResource SecondaryColor}">
 
-    <VerticalStackLayout>
-        <Button Clicked="Button_Clicked" />
-             
+    <VerticalStackLayout Padding="20">
+
+        <Entry x:Name="entryNumbers" Placeholder="Numbers to add..." />
+
+        <Button Clicked="Button_Clicked" Text="Add" />
+
+        <Label Text="Result" FontAttributes="Bold" FontSize="20" />
+        <Label Text="0" x:Name="labelResult" FontSize="18" />
     </VerticalStackLayout>
 </ContentPage>
