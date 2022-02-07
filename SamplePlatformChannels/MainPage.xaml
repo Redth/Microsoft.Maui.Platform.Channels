@@ -1,11 +1,11 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:platformchannels="clr-namespace:Microsoft.Maui.Platform.Channels.Controls;assembly=Microsoft.Maui.Platform.Channels"
+             
              x:Class="SamplePlatformChannels.MainPage"
              BackgroundColor="{DynamicResource SecondaryColor}">
 
-    <StackLayout>
+    <VerticalStackLayout>
         <Button Clicked="Button_Clicked" />
-             <platformchannels:PlatformChannelView x:Name="pcv" ChannelId="test" />
-    </StackLayout>
+             
+    </VerticalStackLayout>
 </ContentPage>

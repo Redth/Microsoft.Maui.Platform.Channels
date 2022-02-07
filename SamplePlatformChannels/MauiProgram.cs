@@ -1,5 +1,4 @@
-﻿using Microsoft.Maui.Handlers;
-using Microsoft.Maui.Platform.Channels;
+﻿using Microsoft.PlatformChannels;
 
 namespace SamplePlatformChannels;
 
@@ -13,12 +12,18 @@ public static class MauiProgram
             .ConfigureFonts(fonts =>
             {
                 fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
-            })
-            .UsePlatformChannels(
+            });
+
+
+        ChannelServiceConfiguration? config = null;
 #if ANDROID
-                new ChannelBrokerConfiguration("com.myapp", "MyClass", "Init")
+        config = new ChannelServiceConfiguration("com.microsoft.maui.platform.channels.sample", "SampleChannels", "init");
+#elif IOS || MACCATALYST
+        config = new ChannelServiceConfiguration("", "");
 #endif
-                );
+
+        if (config != null)
+            builder.Services.AddSingleton<IChannelService>(_ => new ChannelService(config));
 
         return builder.Build();
     }

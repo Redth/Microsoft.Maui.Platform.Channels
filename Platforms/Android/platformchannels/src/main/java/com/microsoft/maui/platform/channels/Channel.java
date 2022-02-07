@@ -1,38 +1,27 @@
 package com.microsoft.maui.platform.channels;
 
-public abstract class Channel {
+public abstract class Channel implements AutoCloseable {
 
-    public Channel(String channelId)
-    {
-        this.broker = ChannelBroker.getInstance();
-        this.channelId = channelId;
+    public Object sendMessageToMaui(String messageId, Object... parameters) throws Exception {
+
+        if (managedHandler == null)
+            throw new Exception("No MAUI Runtime registration for this Channel");
+
+        return managedHandler.onChannelMessage(messageId, parameters);
     }
 
-    public Channel(ChannelBroker broker, String channelId)
-    {
-        this.broker = broker;
-        this.channelId = channelId;
-    }
+    public abstract Object handleMessageFromMaui(String messageId, Object... parameters);
 
-    ChannelBroker broker;
-    String channelId;
+    ChannelMessageHandler managedHandler;
 
-    public String getChannelId()
-    {
-        return channelId;
-    }
-
-    public abstract Object receiveFromManaged(String messageId, Object... parameters);
-
-    public Object sendToManaged(String messageId, Object... parameters) throws Exception {
-        return managedHandler.onMessage(messageId, parameters);
-    }
-
-    MessageHandler managedHandler;
-
-    public void setManagedHandler(MessageHandler handler) {
+    public void setManagedHandler(ChannelMessageHandler handler) {
         managedHandler = handler;
     }
 
+
+    @Override
+    public void close() throws Exception {
+        managedHandler = null;
+    }
 }
 

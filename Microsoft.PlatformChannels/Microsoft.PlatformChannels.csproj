@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFrameworks>net6.0-ios;net6.0-maccatalyst;net6.0-android</TargetFrameworks>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<EnableDefaultCompileItems>False</EnableDefaultCompileItems>
+	</PropertyGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\Microsoft.PlatformChannels.Binding\Microsoft.PlatformChannels.Binding.csproj" />
+
+	  <Compile Include="**/*.shared.cs" />
+	</ItemGroup>
+
+	<ItemGroup Condition="'$(TargetFramework)' == 'net6.0-android'">
+		<Compile Include="Platforms/Android/**/*.cs" />
+    </ItemGroup>
+
+	<ItemGroup Condition="'$(TargetFramework)' == 'net6.0-ios' OR '$(TargetFramework)' == 'net6.0-maccatalyst'">
+		<Compile Include="Platforms/iOS/**/*.cs" />
+    </ItemGroup>
+
+</Project>
