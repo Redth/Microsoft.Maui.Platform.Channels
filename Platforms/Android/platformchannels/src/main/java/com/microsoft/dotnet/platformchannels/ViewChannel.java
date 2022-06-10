@@ -1,4 +1,4 @@
-package com.microsoft.maui.platform.channels;
+package com.microsoft.dotnet.platformchannels;
 
 import android.content.Context;
 import android.view.View;

@@ -1,4 +1,4 @@
-package com.microsoft.maui.platform.channels;
+package com.microsoft.dotnet.platformchannels;
 
 public interface ChannelProvider {
     public String getDefaultInstanceId();

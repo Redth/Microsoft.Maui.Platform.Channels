@@ -1,6 +1,6 @@
-package com.microsoft.maui.platform.channels.sample;
+package com.microsoft.dotnet.platformchannels.sample;
 
-import com.microsoft.maui.platform.channels.ChannelService;
+import com.microsoft.dotnet.platformchannels.ChannelService;
 
 public class SampleChannels {
     public static void init() {

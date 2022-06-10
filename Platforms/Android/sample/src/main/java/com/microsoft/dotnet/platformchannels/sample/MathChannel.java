@@ -1,7 +1,9 @@
-package com.microsoft.maui.platform.channels.sample;
+package com.microsoft.dotnet.platformchannels.sample;
 
-import com.microsoft.maui.platform.channels.Channel;
-import com.microsoft.maui.platform.channels.ChannelService;
+import android.view.View;
+
+import com.microsoft.dotnet.platformchannels.Channel;
+import com.microsoft.dotnet.platformchannels.ChannelService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,7 +11,7 @@ import java.util.List;
 public class MathChannel extends Channel {
 
     @Override
-    public Object handleMessageFromMaui(String messageId, Object... parameters) {
+    public Object handleMessageFromDotNet(String messageId, Object... parameters) {
         if (messageId.equals("add"))
         {
             return add(parameters);

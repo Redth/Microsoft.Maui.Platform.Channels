@@ -1,16 +1,16 @@
-package com.microsoft.maui.platform.channels;
+package com.microsoft.dotnet.platformchannels;
 
 public abstract class Channel implements AutoCloseable {
 
-    public Object sendMessageToMaui(String messageId, Object... parameters) throws Exception {
+    public Object sendMessageToDotNet(String messageId, Object[] args) throws Exception {
 
         if (managedHandler == null)
             throw new Exception("No MAUI Runtime registration for this Channel");
 
-        return managedHandler.onChannelMessage(messageId, parameters);
+        return managedHandler.onChannelMessage(messageId, args);
     }
 
-    public abstract Object handleMessageFromMaui(String messageId, Object... parameters);
+    public abstract Object handleMessageFromDotNet(String messageId, Object[] args);
 
     ChannelMessageHandler managedHandler;
 

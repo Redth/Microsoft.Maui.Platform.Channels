@@ -1,4 +1,5 @@
-package com.microsoft.maui.platform.channels;
+package com.microsoft.dotnet.platformchannels;
+
 
 import java.util.Collection;
 import java.util.concurrent.ConcurrentHashMap;
