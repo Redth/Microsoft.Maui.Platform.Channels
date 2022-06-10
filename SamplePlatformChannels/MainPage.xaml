@@ -1,6 +1,6 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             
+             xmlns:channels="clr-namespace:Microsoft.Maui.PlatformChannels.Controls;assembly=Microsoft.Maui.PlatformChannels"
              x:Class="SamplePlatformChannels.MainPage"
              BackgroundColor="{DynamicResource SecondaryColor}">
 
@@ -12,5 +12,7 @@
 
         <Label Text="Result" FontAttributes="Bold" FontSize="20" />
         <Label Text="0" x:Name="labelResult" FontSize="18" />
-    </VerticalStackLayout>
+
+		<channels:PlatformChannelView ChannelTypeId="" OnReceiveFromPlatform="PlatformChannelView_OnReceiveFromPlatform" />
+	</VerticalStackLayout>
 </ContentPage>

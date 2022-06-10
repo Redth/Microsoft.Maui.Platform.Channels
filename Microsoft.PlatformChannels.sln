@@ -9,6 +9,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.PlatformChannels"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.Maui.PlatformChannels", "Microsoft.Maui.PlatformChannels\Microsoft.Maui.PlatformChannels.csproj", "{A74DED1A-4078-438C-9282-50EC98E7267B}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SamplePlatformChannels", "SamplePlatformChannels\SamplePlatformChannels.csproj", "{834B856B-C4E0-4600-AAD3-A87B4F8A0AC6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,12 @@ Global
 		{A74DED1A-4078-438C-9282-50EC98E7267B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A74DED1A-4078-438C-9282-50EC98E7267B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A74DED1A-4078-438C-9282-50EC98E7267B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{834B856B-C4E0-4600-AAD3-A87B4F8A0AC6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{834B856B-C4E0-4600-AAD3-A87B4F8A0AC6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{834B856B-C4E0-4600-AAD3-A87B4F8A0AC6}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{834B856B-C4E0-4600-AAD3-A87B4F8A0AC6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{834B856B-C4E0-4600-AAD3-A87B4F8A0AC6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{834B856B-C4E0-4600-AAD3-A87B4F8A0AC6}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

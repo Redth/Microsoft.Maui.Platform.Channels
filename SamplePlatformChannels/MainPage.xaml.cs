@@ -32,4 +32,8 @@ public partial class MainPage : ContentPage
             labelResult.Text = dbl.ToString();
     }
 
+	private object PlatformChannelView_OnReceiveFromPlatform(string messageId, object parameters)
+	{
+        return null;
+	}
 }
