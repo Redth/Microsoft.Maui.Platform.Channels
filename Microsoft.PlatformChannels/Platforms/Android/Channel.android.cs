@@ -1,9 +1,18 @@
 
 namespace Microsoft.PlatformChannels
 {
-    public partial class Channel
-    {
-		internal PlatformObject ToPlatformObject(object obj)
+	public partial class Channel
+	{
+		public static PlatformObject[] ToPlatformObjects(object[] objs)
+		{
+			PlatformObject[] r = null;
+
+			if (objs is not null && objs.Length > 1)
+				r = objs.ToArray().Select(a => ToPlatformObject(a)).ToArray();
+			return r;
+		}
+
+		public static PlatformObject ToPlatformObject(object obj)
 		{
 			if (obj is null)
 				return null;
@@ -29,13 +38,22 @@ namespace Microsoft.PlatformChannels
 				return new Java.Lang.Long((long)obj);
 			else if (objType == typeof(short))
 #pragma warning disable CS0618 // Type or member is obsolete
-                return new Java.Lang.Short((short)obj);
+				return new Java.Lang.Short((short)obj);
 #pragma warning restore CS0618 // Type or member is obsolete
 
-            throw new NotSupportedException();
+			throw new NotSupportedException();
 		}
 
-		internal object ToDotNetObject(PlatformObject obj)
+		public static object[] ToDotNetObjects(PlatformObject[] objs)
+		{
+			object[] r = null;
+
+			if (objs is not null && objs.Length > 1)
+				r = objs.ToArray().Select(a => ToDotNetObject(a)).ToArray();
+			return r;
+		}
+
+		public static object ToDotNetObject(PlatformObject obj)
 		{
 			if (obj is Java.Lang.String jstr)
 				return jstr.ToString();
@@ -56,5 +74,5 @@ namespace Microsoft.PlatformChannels
 			
 			return obj;
 		}
-    }
+	}
 }

@@ -1,18 +1,13 @@
-﻿//using System;
-//using Microsoft.Maui.Platform.Channels;
+﻿using Microsoft.PlatformChannels;
+using System;
 
-//namespace SamplePlatformChannels
-//{
-//    public interface IPlatformChannelView : IView
-//	{
-//		Channels Broker { get; }
+namespace Microsoft.Maui.PlatformChannels;
 
-//		string ChannelTypeId { get; }
-		
-//		object SendToPlatform(string id, params object[] parameters);
-//		object ReceiveFromPlatform(string id, params object[] parameters);
-		
-		
-//	}
-//}
+public interface IPlatformChannelView : IView
+{
+	string ChannelTypeId { get; }
 
+	object SendToPlatform(string id, object[] parameters);
+
+	event ChannelMessageDelegate OnReceiveFromPlatform;
+}

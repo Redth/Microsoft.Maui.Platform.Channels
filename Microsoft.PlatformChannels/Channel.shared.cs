@@ -12,7 +12,7 @@ namespace Microsoft.PlatformChannels
         internal PlatformChannel PlatformChannel { get; set; }
 
         public PlatformObject OnChannelMessage(string messageId, params PlatformObject[] parameters)
-            => this.ToPlatformObject(HandleFromPlatform(messageId, parameters.Select(p => this.ToDotNetObject(p))));
+            => ToPlatformObject(HandleFromPlatform(messageId, ToDotNetObjects(parameters)));
 
         public virtual object HandleFromPlatform(string messageId, params object[] parameters)
             => null;
@@ -23,12 +23,12 @@ namespace Microsoft.PlatformChannels
 
             foreach (var p in parameters)
             {
-                var platformParam = this.ToPlatformObject(p);
+                var platformParam = ToPlatformObject(p);
                 platformParams.Add(platformParam);
             }
 
-            var result = PlatformChannel.HandleMessageFromMaui(messageId, platformParams.ToArray());
-            return this.ToDotNetObject(result);
+            var result = PlatformChannel.HandleMessageFromDotNet(messageId, platformParams.ToArray());
+            return ToDotNetObject(result);
         }
     }
 }
