@@ -17,7 +17,7 @@ public static class MauiProgram
 
         ChannelServiceConfiguration? config = null;
 #if ANDROID
-        config = new ChannelServiceConfiguration("com.microsoft.maui.platform.channels.sample", "SampleChannels", "init");
+        config = new ChannelServiceConfiguration("com.microsoft.dotnet.platformchannels.sample", "SampleChannels", "init");
 #elif IOS || MACCATALYST
         config = new ChannelServiceConfiguration("", "");
 #endif

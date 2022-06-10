@@ -13,6 +13,6 @@
         <Label Text="Result" FontAttributes="Bold" FontSize="20" />
         <Label Text="0" x:Name="labelResult" FontSize="18" />
 
-		<channels:PlatformChannelView ChannelTypeId="" OnReceiveFromPlatform="PlatformChannelView_OnReceiveFromPlatform" />
+		<channels:PlatformChannelView x:Name="labelViewChannel" ChannelTypeId="labelView" OnReceiveFromPlatform="PlatformChannelView_OnReceiveFromPlatform" />
 	</VerticalStackLayout>
 </ContentPage>
