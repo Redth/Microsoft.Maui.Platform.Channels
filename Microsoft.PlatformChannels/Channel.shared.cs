@@ -18,17 +18,6 @@ namespace Microsoft.PlatformChannels
             => null;
 
         public object SendToPlatform(string messageId, params object[] parameters)
-        {
-            var platformParams = new List<PlatformObject>(parameters.Length);
-
-            foreach (var p in parameters)
-            {
-                var platformParam = ToPlatformObject(p);
-                platformParams.Add(platformParam);
-            }
-
-            var result = PlatformChannel.HandleMessageFromDotNet(messageId, platformParams.ToArray());
-            return ToDotNetObject(result);
-        }
+            => ToDotNetObject(PlatformChannel.HandleMessageFromDotNet(messageId, ToPlatformObjects(parameters)));
     }
 }
