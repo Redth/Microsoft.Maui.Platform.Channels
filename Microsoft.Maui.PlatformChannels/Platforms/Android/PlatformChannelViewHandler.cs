@@ -12,14 +12,16 @@ public partial class PlatformChannelViewHandler : ViewHandler<IPlatformChannelVi
 {
 	AndroidViewChannel platformViewChannel;
 	PlatformManagedHandler managedHandler;
-	string channelId = null;
 	AViewGroup viewGroup;
+
+	protected string ChannelTypeId { get; private set; }
+	protected string ChannelInstanceId { get; private set; }
 
 	protected override global::Android.Views.View CreatePlatformView()
 	{
 		if (viewGroup is null)
 			viewGroup = new AViewGroup(Context);
-		EnsureChannelCreated(channelId);
+		EnsureChannelCreated();
 		
 		return viewGroup;
 	}
@@ -27,22 +29,39 @@ public partial class PlatformChannelViewHandler : ViewHandler<IPlatformChannelVi
 	public static void MapChannelTypeId(IPlatformViewHandler handler, IPlatformChannelView view)
 	{
 		if (handler is PlatformChannelViewHandler h)
-			h.EnsureChannelCreated(view.ChannelTypeId);
+			h.EnsureChannelCreated();
 	}
 
-	void EnsureChannelCreated(string channelId)
+	public static void MapChannelInstanceId(IPlatformViewHandler handler, IPlatformChannelView view)
 	{
-		if (string.IsNullOrEmpty(channelId))
+		if (handler is PlatformChannelViewHandler h)
+			h.EnsureChannelCreated();
+	}
+
+	void EnsureChannelCreated()
+	{
+		if (string.IsNullOrEmpty(VirtualView?.ChannelTypeId))
 			return;
+
+		// Is the new id the same as the old?
+		if (VirtualView?.ChannelTypeId == ChannelTypeId)
+		{
+			// Is the instance null on both (so both default and the same)
+			// or is the new instance Id not the same as the old
+			if ((ChannelInstanceId is null && VirtualView?.ChannelInstanceId is null)
+				|| (VirtualView?.ChannelInstanceId != ChannelInstanceId))
+				return; // No change to actual channel, return
+		}
+
+		ChannelTypeId = VirtualView.ChannelTypeId;
+		ChannelInstanceId = VirtualView.ChannelInstanceId;
+
 
 		var channelService = MauiContext.Services.GetRequiredService<IChannelService>();
 
 		if (platformViewChannel is not null)
 		{
-			// If not a different ID then return, we already created
-			if (this.channelId.Equals(channelId, StringComparison.Ordinal))
-				return;
-
+			
 			viewGroup.RemoveAllViews();
 
 			platformViewChannel.Close();
@@ -50,13 +69,13 @@ public partial class PlatformChannelViewHandler : ViewHandler<IPlatformChannelVi
 			platformViewChannel = null;
 		}
 
-		var channel = Microsoft.PlatformChannels.Platform.ChannelService.GetOrCreateChannel(VirtualView.ChannelTypeId);
+		var channel = Microsoft.PlatformChannels.Platform.ChannelService.GetOrCreateChannel(ChannelTypeId, ChannelInstanceId);
 
 		if (channel == null)
-			throw new InvalidOperationException($"No registered ViewChannel found for: '{VirtualView.ChannelTypeId}'");
+			throw new InvalidOperationException($"No registered ViewChannel found for: '{ChannelTypeId}'");
 
 		if (channel is not AndroidViewChannel viewChannel)
-			throw new InvalidCastException($"Registered channel '{VirtualView.ChannelTypeId}' is not a 'ViewChannel' type.");
+			throw new InvalidCastException($"Registered channel '{ChannelTypeId}' is not a 'ViewChannel' type.");
 
 		platformViewChannel = viewChannel;
 

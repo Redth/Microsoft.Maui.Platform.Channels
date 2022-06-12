@@ -27,6 +27,9 @@
 
             var instances = channels[channelId];
 
+            if (string.IsNullOrEmpty(instanceId))
+                instanceId = DefaultInstanceId;
+
             if (!instances.ContainsKey(instanceId))
             {
                 var platformInstance = PlatformChannelService.Create(channelId);

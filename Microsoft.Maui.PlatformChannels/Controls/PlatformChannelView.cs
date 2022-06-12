@@ -4,7 +4,7 @@ namespace Microsoft.Maui.PlatformChannels.Controls;
 
 public class PlatformChannelView : View, IPlatformChannelView
 {
-	public static BindableProperty ChannelIdProperty =
+	public static BindableProperty ChannelTypeIdProperty =
 		BindableProperty.Create(
 			nameof(ChannelTypeId),
 			typeof(string),
@@ -13,8 +13,21 @@ public class PlatformChannelView : View, IPlatformChannelView
 
 	public string ChannelTypeId
 	{
-		get => (string)GetValue(ChannelIdProperty);
-		set => SetValue(ChannelIdProperty, value);
+		get => (string)GetValue(ChannelTypeIdProperty);
+		set => SetValue(ChannelTypeIdProperty, value);
+	}
+
+	public static BindableProperty ChannelInstanceIdProperty =
+		BindableProperty.Create(
+			nameof(ChannelInstanceId),
+			typeof(string),
+			typeof(PlatformChannelView),
+			defaultValue: default);
+
+	public string ChannelInstanceId
+	{
+		get => (string)GetValue(ChannelInstanceIdProperty);
+		set => SetValue(ChannelInstanceIdProperty, value);
 	}
 
 	public object SendToPlatform(string messageId, params object[] parameters)

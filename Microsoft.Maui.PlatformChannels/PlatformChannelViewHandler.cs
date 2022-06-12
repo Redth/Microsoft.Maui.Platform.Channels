@@ -3,32 +3,24 @@ using Microsoft.PlatformChannels;
 
 namespace Microsoft.Maui.PlatformChannels
 {
-	public partial class PlatformChannelViewHandler : Microsoft.Maui.Handlers.ViewHandler<IPlatformChannelView, PlatformView>
+	public partial class PlatformChannelViewHandler : ViewHandler<IPlatformChannelView, PlatformView>
 	{
-		public static PropertyMapper<IPlatformChannelView, PlatformChannelViewHandler> PlatformChannelViewViewMapper = new PropertyMapper<IPlatformChannelView, PlatformChannelViewHandler>(ViewHandler.ViewMapper)
+		public static PropertyMapper<IPlatformChannelView, PlatformChannelViewHandler> PlatformChannelViewViewMapper = new PropertyMapper<IPlatformChannelView, PlatformChannelViewHandler>(ViewMapper)
 		{
-			[nameof(PlatformChannelView.ChannelTypeId)] = MapChannelTypeId
+			[nameof(IPlatformChannelView.ChannelTypeId)] = MapChannelTypeId,
+			[nameof(IPlatformChannelView.ChannelInstanceId)] = MapChannelInstanceId
 		};
 
-		public static CommandMapper<IPlatformChannelView, PlatformChannelViewHandler> PlatformChannelViewCommandMapper = new(PlatformChannelViewHandler.ViewCommandMapper)
+		public static CommandMapper<IPlatformChannelView, PlatformChannelViewHandler> PlatformChannelViewCommandMapper = new(ViewCommandMapper)
 		{
 		};
 
 		public PlatformChannelViewHandler() : base(PlatformChannelViewViewMapper, PlatformChannelViewCommandMapper)
 		{
-			Init();
 		}
 
 		public PlatformChannelViewHandler(PropertyMapper propertyMapper, CommandMapper commandMapper) : base(propertyMapper ?? PlatformChannelViewViewMapper, commandMapper ?? PlatformChannelViewCommandMapper)
 		{
-			Init();
-		}
-
-		protected IChannelService ChannelService { get; private set; }
-
-		void Init()
-		{
-			
 		}
 
 		public event ChannelMessageDelegate OnReceivedFromPlatform;
