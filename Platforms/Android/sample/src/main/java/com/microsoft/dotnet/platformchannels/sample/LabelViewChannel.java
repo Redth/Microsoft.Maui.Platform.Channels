@@ -28,7 +28,7 @@ public class LabelViewChannel extends ViewChannel {
     TextView textView;
 
     @Override
-    public View createPlatformView(Context context) {
+    public View getPlatformView(Context context) {
         if (textView == null)
             textView = new TextView(context);
         return textView;

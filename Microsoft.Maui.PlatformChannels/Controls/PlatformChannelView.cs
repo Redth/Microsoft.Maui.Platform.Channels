@@ -18,7 +18,7 @@ public class PlatformChannelView : View, IPlatformChannelView
 	}
 
 	public object SendToPlatform(string messageId, params object[] parameters)
-		=> (Handler?.VirtualView as IPlatformChannelView)?.SendToPlatform(messageId, parameters);
+		=> (Handler as PlatformChannelViewHandler)?.SendToPlatformImpl(messageId, parameters);
 
 	public event ChannelMessageDelegate OnReceiveFromPlatform;
 

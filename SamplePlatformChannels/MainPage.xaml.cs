@@ -4,18 +4,26 @@ namespace SamplePlatformChannels;
 public partial class MainPage : ContentPage
 {
     
-    public MainPage()
+    public MainPage(IChannelService channelService)
     {
-        InitializeComponent();
+        ChannelService = channelService;
 
-        labelViewChannel.SendToPlatform("setText", "Hello From MAUI!");
+        InitializeComponent();
     }
+
+    public readonly IChannelService ChannelService;
 
     void Button_Clicked(System.Object sender, System.EventArgs e)
     {
-        var channelService = this.Handler.MauiContext.Services.GetRequiredService<IChannelService>();
+		labelViewChannel.SendToPlatform("setText", "Hello, From MAUI!");
 
-        var mathChannel = channelService.GetOrCreateChannel("math");
+
+        if (string.IsNullOrEmpty(entryNumbers?.Text))
+            return;
+
+		// Math service, use independently
+		
+        var mathChannel = ChannelService.GetOrCreateChannel("math");
 
         var entered = entryNumbers.Text.Split(' ', ',', ';');
 

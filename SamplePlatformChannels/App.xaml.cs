@@ -1,11 +1,13 @@
-﻿namespace SamplePlatformChannels;
+﻿using Microsoft.PlatformChannels;
+
+namespace SamplePlatformChannels;
 
 public partial class App : Application
 {
-    public App()
+    public App(IChannelService channelService)
     {
         InitializeComponent();
 
-        MainPage = new MainPage();
+        MainPage = new MainPage(channelService);
     }
 }

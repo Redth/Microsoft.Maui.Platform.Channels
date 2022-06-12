@@ -1,13 +1,23 @@
 
+using Android.Content;
+
 namespace Microsoft.PlatformChannels
 {
+	public partial class ViewChannel
+	{
+		public Android.Content.Context Context { get; set; }
+
+		public virtual PlatformView GetPlatformView()
+			=> PlatformViewChannel?.GetPlatformView(Context);
+	}
+
 	public partial class Channel
 	{
 		public static PlatformObject[] ToPlatformObjects(object[] objs)
 		{
 			PlatformObject[] r = null;
 
-			if (objs is not null && objs.Length > 1)
+			if (objs is not null && objs.Length >= 1)
 				r = objs.ToArray().Select(a => ToPlatformObject(a)).ToArray();
 			return r;
 		}
@@ -48,7 +58,7 @@ namespace Microsoft.PlatformChannels
 		{
 			object[] r = null;
 
-			if (objs is not null && objs.Length > 1)
+			if (objs is not null && objs.Length >= 1)
 				r = objs.ToArray().Select(a => ToDotNetObject(a)).ToArray();
 			return r;
 		}

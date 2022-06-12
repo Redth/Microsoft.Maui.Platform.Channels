@@ -3,8 +3,8 @@ using Foundation;
 
 namespace Microsoft.PlatformChannels
 {
-    public partial class Channel
-    {
+	public partial class Channel
+	{
 		internal PlatformObject ToPlatformObject(object obj)
 		{
 			if (obj is null)

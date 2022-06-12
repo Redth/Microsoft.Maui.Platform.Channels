@@ -16,34 +16,50 @@ public class ChannelService {
     }
 
     ChannelProvider channelProvider;
+    void setChannelProvider(ChannelProvider provider)
+    {
+        channelProvider = provider;
+    }
+
+    ChannelProvider getChannelProvider()
+    {
+        return channelProvider;
+    }
 
     public static void setProvider(ChannelProvider provider)
     {
-        getInstance().channelProvider = provider;
+        final ChannelService instance = getInstance();
+        instance.setChannelProvider(provider);
     }
 
     public static ChannelProvider getProvider()
     {
-        return getInstance().channelProvider;
+        final ChannelService instance = getInstance();
+        final ChannelProvider provider = instance.getChannelProvider();
+        return provider;
     }
 
     ConcurrentHashMap<String, Class<? extends Channel>> channelClasses = new ConcurrentHashMap<>();
 
     public static void register(String channelId, Class<? extends Channel> channel)
     {
+        final ChannelService instance = getInstance();
         // Registers a type that can be used to create a new instance of a given channel id
-        getInstance().channelClasses.put(channelId, channel);
+        instance.channelClasses.put(channelId, channel);
     }
 
     public static Channel getOrCreateChannel(String channelId)
     {
-        final ChannelProvider provider = getInstance().channelProvider;
+        final ChannelService instance = getInstance();
+        final ChannelProvider provider = instance.getChannelProvider();
         return provider.getInstance(channelId, provider.getDefaultInstanceId());
     }
 
     public static Channel getOrCreateChannel(String channelId, String instanceId)
     {
-        return getInstance().channelProvider.getInstance(channelId, instanceId);
+        final ChannelService instance = getInstance();
+        final ChannelProvider provider = instance.getChannelProvider();
+        return provider.getInstance(channelId, instanceId);
     }
 
     public static Channel create(String channelId)

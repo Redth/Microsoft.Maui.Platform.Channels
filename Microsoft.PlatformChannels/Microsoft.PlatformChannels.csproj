@@ -1,24 +1,63 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
 		<!--<TargetFrameworks>net6.0-ios;net6.0-maccatalyst;net6.0-android</TargetFrameworks>-->
 		<TargetFrameworks>net6.0-android</TargetFrameworks>
 		<ImplicitUsings>enable</ImplicitUsings>
-		<EnableDefaultCompileItems>False</EnableDefaultCompileItems>
+		<SingleProject>True</SingleProject>
+		<!--<EnableDefaultCompileItems>False</EnableDefaultCompileItems>-->
 	</PropertyGroup>
 
 	<ItemGroup>
 	  <ProjectReference Include="..\Microsoft.PlatformChannels.Binding\Microsoft.PlatformChannels.Binding.csproj" />
 
-	  <Compile Include="**/*.shared.cs" />
+	  <!--<Compile Include="**/*.shared.cs" />-->
+	</ItemGroup>
+	<ItemGroup>
+
+		<Compile Update="**\*.ios*$(DefaultLanguageSourceExtension)">
+			<ExcludeFromCurrentConfiguration>true</ExcludeFromCurrentConfiguration>
+		</Compile>
+		<Compile Update="**\*.maccatalyst*$(DefaultLanguageSourceExtension)">
+			<ExcludeFromCurrentConfiguration>true</ExcludeFromCurrentConfiguration>
+		</Compile>
+		<Compile Update="**\*.android*$(DefaultLanguageSourceExtension)">
+			<ExcludeFromCurrentConfiguration>true</ExcludeFromCurrentConfiguration>
+		</Compile>
+		<Compile Update="**\*.tizen*$(DefaultLanguageSourceExtension)">
+			<ExcludeFromCurrentConfiguration>true</ExcludeFromCurrentConfiguration>
+		</Compile>
+		<Compile Update="**\*.windows*$(DefaultLanguageSourceExtension)">
+			<ExcludeFromCurrentConfiguration>true</ExcludeFromCurrentConfiguration>
+		</Compile>
+
+		<Compile Condition=" '$(TargetPlatformIdentifier)' == 'ios' " Update="*\*.ios*$(DefaultLanguageSourceExtension)">
+			<ExcludeFromCurrentConfiguration>False</ExcludeFromCurrentConfiguration>
+		</Compile>
+		<Compile Condition=" '$(TargetPlatformIdentifier)' == 'maccatalyst' " Update="**\*.maccatalyst*$(DefaultLanguageSourceExtension)">
+			<ExcludeFromCurrentConfiguration>False</ExcludeFromCurrentConfiguration>
+		</Compile>
+		<Compile Condition=" '$(TargetPlatformIdentifier)' == 'android' " Update="**\*.android*$(DefaultLanguageSourceExtension)">
+			<ExcludeFromCurrentConfiguration>False</ExcludeFromCurrentConfiguration>
+		</Compile>
+		<Compile Condition=" '$(TargetPlatformIdentifier)' == 'windows' " Update="**\*.windows*$(DefaultLanguageSourceExtension)">
+			<ExcludeFromCurrentConfiguration>False</ExcludeFromCurrentConfiguration>
+		</Compile>
+		<Compile Condition=" '$(TargetPlatformIdentifier)' == 'tizen' " Update="**\*.tizen*$(DefaultLanguageSourceExtension)">
+			<ExcludeFromCurrentConfiguration>False</ExcludeFromCurrentConfiguration>
+		</Compile>
+
 	</ItemGroup>
 
-	<ItemGroup Condition="'$(TargetFramework)' == 'net6.0-android'">
-		<Compile Include="Platforms/Android/**/*.cs" />
-    </ItemGroup>
 
-	<ItemGroup Condition="'$(TargetFramework)' == 'net6.0-ios' OR '$(TargetFramework)' == 'net6.0-maccatalyst'">
-		<Compile Include="Platforms/iOS/**/*.cs" />
-    </ItemGroup>
+	<Target Name="_RemovePlatformFileNamePatternCompileItems" BeforeTargets="GenerateMSBuildEditorConfigFileShouldRun">
+		<ItemGroup>
+			<Compile Condition=" '%(Compile.ExcludeFromCurrentConfiguration)' == 'true' " Remove="**\*.ios*$(DefaultLanguageSourceExtension)" />
+			<Compile Condition=" '%(Compile.ExcludeFromCurrentConfiguration)' == 'true' " Remove="**\*.maccatalyst*$(DefaultLanguageSourceExtension)" />
+			<Compile Condition=" '%(Compile.ExcludeFromCurrentConfiguration)' == 'true' " Remove="**\*.android*$(DefaultLanguageSourceExtension)" />
+			<Compile Condition=" '%(Compile.ExcludeFromCurrentConfiguration)' == 'true' " Remove="**\*.windows*$(DefaultLanguageSourceExtension)" />
+			<Compile Condition=" '%(Compile.ExcludeFromCurrentConfiguration)' == 'true' " Remove="**\*.tizen*$(DefaultLanguageSourceExtension)" />
+		</ItemGroup>
+	</Target>
 
 </Project>

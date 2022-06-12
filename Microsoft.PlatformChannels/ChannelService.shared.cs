@@ -8,14 +8,16 @@ namespace Microsoft.PlatformChannels
     {
         public const string DEFAULT_INSTANCE_ID = "DEFAULT";
 
+        ChannelProvider channelProvider;
+
         public ChannelService(ChannelServiceConfiguration configuration = null)
         {
             Configuration = configuration ?? new ChannelServiceConfiguration();
 
-            var provider = new ChannelProvider();
+            channelProvider = new ChannelProvider();
 
-            PlatformProvider = provider;
-            ManagedProvider = provider;
+            PlatformProvider = channelProvider;
+            ManagedProvider = channelProvider;
 
             Initialize();
         }
@@ -35,5 +37,6 @@ namespace Microsoft.PlatformChannels
 
         public Channel GetOrCreateChannel(string channelId, string instanceId)
             => ManagedProvider.GetManagedInstance(channelId, instanceId ?? DEFAULT_INSTANCE_ID);
-    }
+
+	}
 }

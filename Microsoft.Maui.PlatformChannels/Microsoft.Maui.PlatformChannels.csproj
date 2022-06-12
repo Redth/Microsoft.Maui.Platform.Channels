@@ -11,9 +11,6 @@
 		<None Remove="Controls\" />
 	</ItemGroup>
 	<ItemGroup>
-		<Folder Include="Controls\" />
-	</ItemGroup>
-	<ItemGroup>
 		<ProjectReference Include="..\Microsoft.PlatformChannels\Microsoft.PlatformChannels.csproj" />
 		<ProjectReference Include="..\Microsoft.PlatformChannels.Binding\Microsoft.PlatformChannels.Binding.csproj" />
 	</ItemGroup>
