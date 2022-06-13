@@ -1,50 +1,50 @@
 ﻿using Microsoft.PlatformChannels;
 
 namespace SamplePlatformChannels;
+
 public partial class MainPage : ContentPage
 {
-    
-    public MainPage(IChannelService channelService)
-    {
-        ChannelService = channelService;
+	public MainPage(IChannelService channelService)
+	{
+		ChannelService = channelService;
 
-        InitializeComponent();
-    }
+		InitializeComponent();
+	}
 
-    public readonly IChannelService ChannelService;
+	public readonly IChannelService ChannelService;
 
-    void Button_Clicked(System.Object sender, System.EventArgs e)
-    {
+	void Button_Clicked(System.Object sender, System.EventArgs e)
+	{
 		labelViewChannel.SendToPlatform("setText", "Hello, From MAUI!");
 		labelViewChannel2.SendToPlatform("setText", "Hello again, From MAUI!");
 
 
 		if (string.IsNullOrEmpty(entryNumbers?.Text))
-            return;
+			return;
 
 		// Math service, use independently
-		
-        var mathChannel = ChannelService.GetOrCreateChannel("math");
 
-        var entered = entryNumbers.Text.Split(' ', ',', ';');
+		var mathChannel = ChannelService.GetOrCreateChannel("math");
 
-        var items = new List<object>();
+		var entered = entryNumbers.Text.Split(' ', ',', ';');
 
-        foreach (var n in entered)
-        {
-            if (double.TryParse(n, out var ndbl))
-                items.Add(ndbl);
-        }
+		var items = new List<object>();
 
-        var itemsArr = items.ToArray();
-        var result = mathChannel.SendToPlatform("add", itemsArr);
+		foreach (var n in entered)
+		{
+			if (double.TryParse(n, out var ndbl))
+				items.Add(ndbl);
+		}
 
-        if (result is double dbl)
-            labelResult.Text = dbl.ToString();
-    }
+		var itemsArr = items.ToArray();
+		var result = mathChannel.SendToPlatform("add", itemsArr);
+
+		if (result is double dbl)
+			labelResult.Text = dbl.ToString();
+	}
 
 	private object PlatformChannelView_OnReceiveFromPlatform(string messageId, object parameters)
 	{
-        return null;
+		return null;
 	}
 }

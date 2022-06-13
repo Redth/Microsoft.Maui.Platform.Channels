@@ -24,7 +24,4 @@ public partial class PlatformChannelViewHandler : ViewHandler<IPlatformChannelVi
 	}
 
 	public event ChannelMessageDelegate OnReceivedFromPlatform;
-
-
 }
-

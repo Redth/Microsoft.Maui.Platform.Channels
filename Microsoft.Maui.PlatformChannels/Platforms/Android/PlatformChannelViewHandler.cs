@@ -1,6 +1,4 @@
-﻿using System;
-using System.Runtime.CompilerServices;
-using Microsoft.Maui.Handlers;
+﻿using Microsoft.Maui.Handlers;
 using Microsoft.PlatformChannels;
 using AndroidViewChannel = Microsoft.PlatformChannels.Platform.ViewChannel;
 using AViewGroup = Android.Widget.LinearLayout;
@@ -118,6 +116,3 @@ public partial class PlatformChannelViewHandler : ViewHandler<IPlatformChannelVi
 			=> Callback?.Invoke(id, parameters.ToDotNetObjects()).ToPlatformObject();
 	}
 }
-
-
-
