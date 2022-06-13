@@ -53,10 +53,6 @@ public partial class PlatformChannelViewHandler : ViewHandler<IPlatformChannelVi
 				return; // No change to actual channel, return
 		}
 
-		ChannelTypeId = VirtualView.ChannelTypeId;
-		ChannelInstanceId = VirtualView.ChannelInstanceId;
-
-
 		var channelService = MauiContext.Services.GetRequiredService<IChannelService>();
 
 		if (platformViewChannel is not null)
@@ -64,18 +60,24 @@ public partial class PlatformChannelViewHandler : ViewHandler<IPlatformChannelVi
 			
 			viewGroup.RemoveAllViews();
 
+			channelService.DisposeChannel(ChannelTypeId, ChannelInstanceId);
+			platformViewChannel.Dispose();
 			platformViewChannel.Close();
 			platformViewChannel.Dispose();
 			platformViewChannel = null;
 		}
 
+		ChannelTypeId = VirtualView.ChannelTypeId;
+		ChannelInstanceId = VirtualView.ChannelInstanceId;
+
+
 		var channel = Microsoft.PlatformChannels.Platform.ChannelService.GetOrCreateChannel(ChannelTypeId, ChannelInstanceId);
 
 		if (channel == null)
-			throw new InvalidOperationException($"No registered ViewChannel found for: '{ChannelTypeId}'");
+			throw new InvalidOperationException($"No registered ViewChannel found for: '{ChannelTypeId}', instance: '{ChannelInstanceId}'");
 
 		if (channel is not AndroidViewChannel viewChannel)
-			throw new InvalidCastException($"Registered channel '{ChannelTypeId}' is not a 'ViewChannel' type.");
+			throw new InvalidCastException($"Registered channel '{ChannelTypeId}' is not a 'ViewChannel' type for instance: '{ChannelInstanceId}");
 
 		platformViewChannel = viewChannel;
 
