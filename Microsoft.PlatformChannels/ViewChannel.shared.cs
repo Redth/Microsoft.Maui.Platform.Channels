@@ -1,17 +1,17 @@
 ﻿
 namespace Microsoft.PlatformChannels;
 
-public partial class Channel : PlatformObject, IPlatformChannelMessageHandler
+public partial class ViewChannel : PlatformObject, IPlatformChannelMessageHandler
 {
-	internal Channel(PlatformChannel platformChannel)
+	internal ViewChannel(PlatformViewChannel platformChannel)
 	{
-		PlatformChannel = platformChannel;
-		PlatformChannel.SetManagedHandler(this);
+		PlatformViewChannel = platformChannel;
+		PlatformViewChannel.SetManagedHandler(this);
 	}
 
 	public event ChannelMessageDelegate OnReceiveFromPlatform;
 
-	internal PlatformChannel PlatformChannel { get; set; }
+	internal PlatformViewChannel PlatformViewChannel { get; set; }
 
 	public PlatformObject OnChannelMessage(string messageId, params PlatformObject[] parameters)
 		=> ReceiveFromPlatform(messageId, parameters.ToDotNetObjects()).ToPlatformObject();
@@ -20,5 +20,5 @@ public partial class Channel : PlatformObject, IPlatformChannelMessageHandler
 		=> OnReceiveFromPlatform?.Invoke(messageId, parameters);
 
 	public object SendToPlatform(string messageId, params object[] parameters)
-		=> PlatformChannel.HandleMessageFromDotNet(messageId, parameters.ToPlatformObjects()).ToDotNetObject();
+		=> PlatformViewChannel.HandleMessageFromDotNet(messageId, parameters.ToPlatformObjects()).ToDotNetObject();
 }

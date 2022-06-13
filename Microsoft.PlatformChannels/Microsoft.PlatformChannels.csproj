@@ -8,6 +8,10 @@
 		<!--<EnableDefaultCompileItems>False</EnableDefaultCompileItems>-->
 	</PropertyGroup>
 
+	<PropertyGroup Condition="'$(TargetFramework)' == 'net6.0-android'">
+		<SupportedOSPlatformVersion>21</SupportedOSPlatformVersion>
+	</PropertyGroup>
+
 	<ItemGroup>
 	  <ProjectReference Include="..\Microsoft.PlatformChannels.Binding\Microsoft.PlatformChannels.Binding.csproj" />
 

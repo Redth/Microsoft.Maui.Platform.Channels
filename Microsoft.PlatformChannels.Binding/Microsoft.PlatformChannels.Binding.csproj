@@ -7,9 +7,9 @@
     <EnableDefaultCompileItems>False</EnableDefaultCompileItems>
     <RootNamespace>Microsoft.PlatformChannels.Platform</RootNamespace>
   </PropertyGroup>
-  <!--<PropertyGroup Condition="'$(TargetFramework)' == 'net6.0-android'">
+  <PropertyGroup Condition="'$(TargetFramework)' == 'net6.0-android'">
 	  <SupportedOSPlatformVersion>21</SupportedOSPlatformVersion>
-  </PropertyGroup>-->
+  </PropertyGroup>
 
   <PropertyGroup Condition="'$(TargetFramework)' == 'net6.0-ios' OR '$(TargetFramework)' == 'net6.0-maccatalyst' ">
       <IsBindingProject>True</IsBindingProject>

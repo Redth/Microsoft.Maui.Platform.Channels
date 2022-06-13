@@ -3,7 +3,6 @@ using System.Runtime.CompilerServices;
 using Microsoft.Maui.Handlers;
 using Microsoft.PlatformChannels;
 using AndroidViewChannel = Microsoft.PlatformChannels.Platform.ViewChannel;
-using PChannel = Microsoft.PlatformChannels.Channel;
 using AViewGroup = Android.Widget.LinearLayout;
 
 namespace Microsoft.Maui.PlatformChannels;
@@ -96,11 +95,11 @@ public partial class PlatformChannelViewHandler : ViewHandler<IPlatformChannelVi
 
 	internal object SendToPlatformImpl(string messageId, object[] args)
 	{
-		var platformObjs = PChannel.ToPlatformObjects(args);
+		var platformObjs = args.ToPlatformObjects();
 
 		var platformResp = platformViewChannel?.HandleMessageFromDotNet(messageId, platformObjs);
 
-		var result = PChannel.ToDotNetObject(platformResp);
+		var result = platformResp.ToDotNetObject();
 
 		return result;
 	}
@@ -116,7 +115,7 @@ public partial class PlatformChannelViewHandler : ViewHandler<IPlatformChannelVi
 		protected readonly Func<string, object[], object> Callback;
 
 		public PlatformObject OnChannelMessage(string id, PlatformObject[] parameters)
-			=> PChannel.ToPlatformObject(Callback?.Invoke(id, PChannel.ToDotNetObjects(parameters)));
+			=> Callback?.Invoke(id, parameters.ToDotNetObjects()).ToPlatformObject();
 	}
 }
 

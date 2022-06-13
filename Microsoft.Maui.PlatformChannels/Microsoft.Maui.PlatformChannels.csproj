@@ -7,6 +7,10 @@
 		<ImplicitUsings>enable</ImplicitUsings>
 	</PropertyGroup>
 
+	<PropertyGroup Condition="'$(TargetFramework)' == 'net6.0-android'">
+		<SupportedOSPlatformVersion>21</SupportedOSPlatformVersion>
+	</PropertyGroup>
+
 	<ItemGroup>
 		<None Remove="Controls\" />
 	</ItemGroup>

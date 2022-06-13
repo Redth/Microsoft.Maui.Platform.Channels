@@ -7,7 +7,7 @@ public static class MauiProgram
 {
     public static MauiApp CreateMauiApp()
     {
-		ChannelServiceConfiguration? config = null;
+		ChannelServiceConfiguration config = null;
 #if ANDROID
 		config = new ChannelServiceConfiguration("com.microsoft.dotnet.platformchannels.sample", "SampleChannels", "init");
 #elif IOS || MACCATALYST
