@@ -16,7 +16,7 @@ public partial class MainPage : ContentPage
     void Button_Clicked(System.Object sender, System.EventArgs e)
     {
 		labelViewChannel.SendToPlatform("setText", "Hello, From MAUI!");
-		labelViewChannel2.SendToPlatform("setText", "Hello, From MAUI!");
+		labelViewChannel2.SendToPlatform("setText", "Hello again, From MAUI!");
 
 
 		if (string.IsNullOrEmpty(entryNumbers?.Text))

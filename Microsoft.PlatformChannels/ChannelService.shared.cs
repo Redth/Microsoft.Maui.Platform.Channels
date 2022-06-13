@@ -29,12 +29,9 @@ public partial class ChannelService : IChannelService
 
 	public ChannelServiceConfiguration Configuration { get; }
 
-	public Channel Get(string channelId)
-		=> GetOrCreateChannel(channelId, null);
-
 	public Channel GetOrCreateChannel(string channelId, string instanceId)
 		=> ManagedProvider.GetManagedInstance(channelId, instanceId ?? DEFAULT_INSTANCE_ID);
 
 	public void DisposeChannel(string channelId, string instanceId)
-		=> PlatformProvider.DisposeInstance(channelId, instanceId);
+		=> PlatformProvider.DisposeInstance(channelId, instanceId ?? DEFAULT_INSTANCE_ID);
 }

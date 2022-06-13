@@ -22,7 +22,7 @@ public class PlatformChannelView : View, IPlatformChannelView
 			nameof(ChannelInstanceId),
 			typeof(string),
 			typeof(PlatformChannelView),
-			defaultValue: default);
+			defaultValueCreator: bobj => Guid.NewGuid().ToString());
 
 	public string ChannelInstanceId
 	{

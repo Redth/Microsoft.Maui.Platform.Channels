@@ -17,6 +17,8 @@ public partial class PlatformChannelViewHandler : ViewHandler<IPlatformChannelVi
 	protected string ChannelTypeId { get; private set; }
 	protected string ChannelInstanceId { get; private set; }
 
+	IChannelService channelService;
+
 	protected override global::Android.Views.View CreatePlatformView()
 	{
 		if (viewGroup is null)
@@ -43,32 +45,32 @@ public partial class PlatformChannelViewHandler : ViewHandler<IPlatformChannelVi
 		if (string.IsNullOrEmpty(VirtualView?.ChannelTypeId))
 			return;
 
+		var instanceId = VirtualView?.ChannelInstanceId ?? ChannelService.DEFAULT_INSTANCE_ID;
+
 		// Is the new id the same as the old?
 		if (VirtualView?.ChannelTypeId == ChannelTypeId)
 		{
 			// Is the instance null on both (so both default and the same)
 			// or is the new instance Id not the same as the old
-			if ((ChannelInstanceId is null && VirtualView?.ChannelInstanceId is null)
-				|| (VirtualView?.ChannelInstanceId != ChannelInstanceId))
+			if (instanceId == ChannelInstanceId)
 				return; // No change to actual channel, return
 		}
 
-		var channelService = MauiContext.Services.GetRequiredService<IChannelService>();
+		channelService ??= MauiContext.Services.GetRequiredService<IChannelService>();
 
 		if (platformViewChannel is not null)
 		{
-			
 			viewGroup.RemoveAllViews();
 
+			if (viewGroup.Parent is Android.Views.ViewGroup vg)
+				vg.RemoveView(viewGroup);
+
 			channelService.DisposeChannel(ChannelTypeId, ChannelInstanceId);
-			platformViewChannel.Dispose();
-			platformViewChannel.Close();
-			platformViewChannel.Dispose();
 			platformViewChannel = null;
 		}
 
 		ChannelTypeId = VirtualView.ChannelTypeId;
-		ChannelInstanceId = VirtualView.ChannelInstanceId;
+		ChannelInstanceId = instanceId;
 
 
 		var channel = Microsoft.PlatformChannels.Platform.ChannelService.GetOrCreateChannel(ChannelTypeId, ChannelInstanceId);

@@ -16,6 +16,6 @@
 		<Label Text="Platform Views" FontSize="20" Margin="0,20,0,0" />
 		<channels:PlatformChannelView x:Name="labelViewChannel" ChannelTypeId="labelView" OnReceiveFromPlatform="PlatformChannelView_OnReceiveFromPlatform" />
 
-		<channels:PlatformChannelView x:Name="labelViewChannel2" ChannelTypeId="labelView" ChannelInstanceId="another" OnReceiveFromPlatform="PlatformChannelView_OnReceiveFromPlatform" />
+		<channels:PlatformChannelView x:Name="labelViewChannel2" ChannelTypeId="labelView" />
 	</VerticalStackLayout>
 </ContentPage>
