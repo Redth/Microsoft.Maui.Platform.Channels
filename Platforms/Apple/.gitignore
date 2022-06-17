@@ -1,6 +1,8 @@
-# ## User settings
-# xcuserdata/
+## User settings
+xcuserdata/
 
-# ## Xcode 8 and earlier
-# *.xcscmblueprint
-# *.xccheckout
+## Xcode 8 and earlier
+*.xcscmblueprint
+*.xccheckout
+
+sharpie-build/
