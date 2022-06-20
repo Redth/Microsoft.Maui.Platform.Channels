@@ -1,4 +1,14 @@
-﻿namespace Microsoft.PlatformChannels;
+﻿using PlatformChannel = Microsoft.PlatformChannels.Platform.Channel;
+using IPlatformChannelProvider = Microsoft.PlatformChannels.Platform.IChannelProvider;
+using PlatformChannelService = Microsoft.PlatformChannels.Platform.ChannelService;
+
+#if IOS || MACCATALYST
+using PlatformObject = Foundation.NSObject;
+#elif ANDROID
+using PlatformObject = Java.Lang.Object;
+#endif
+
+namespace Microsoft.PlatformChannels;
 
 internal class ChannelInstanceHolder
 {
@@ -71,7 +81,9 @@ public partial class ChannelProvider
 		var instance = instances[instanceId];
 		instances.Remove(instanceId);
 
+#if ANDROID
 		instance.PlatformInstance.Close();
+#endif
 		instance.PlatformInstance = null;
 		instance.Instance = null;
 	}

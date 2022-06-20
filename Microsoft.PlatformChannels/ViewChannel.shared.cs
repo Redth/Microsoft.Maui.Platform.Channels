@@ -1,4 +1,17 @@
 ﻿
+using PlatformChannel = Microsoft.PlatformChannels.Platform.Channel;
+using IPlatformChannelProvider = Microsoft.PlatformChannels.Platform.IChannelProvider;
+using PlatformChannelService = Microsoft.PlatformChannels.Platform.ChannelService;
+using PlatformViewChannel = Microsoft.PlatformChannels.Platform.ViewChannel;
+
+using IPlatformChannelMessageHandler = Microsoft.PlatformChannels.Platform.IChannelMessageHandler;
+
+#if IOS || MACCATALYST
+using PlatformObject = Foundation.NSObject;
+#elif ANDROID
+using PlatformObject = Java.Lang.Object;
+#endif
+
 namespace Microsoft.PlatformChannels;
 
 public partial class ViewChannel : PlatformObject, IPlatformChannelMessageHandler
@@ -20,5 +33,21 @@ public partial class ViewChannel : PlatformObject, IPlatformChannelMessageHandle
 		=> OnReceiveFromPlatform?.Invoke(messageId, parameters);
 
 	public object SendToPlatform(string messageId, params object[] parameters)
+#if IOS || MACCATALYST
+		=> (PlatformViewChannel as IPlatformChannelMessageHandler)?.OnChannelMessage(messageId, parameters.ToPlatformObjects()).ToDotNetObject();
+#else
 		=> PlatformViewChannel.HandleMessageFromDotNet(messageId, parameters.ToPlatformObjects()).ToDotNetObject();
+#endif
+
+
+
+#if IOS || MACCATALYST
+	public virtual UIKit.UIView GetPlatformView()
+		=> (PlatformViewChannel as Microsoft.PlatformChannels.Platform.IChannelViewProvider)?.GetPlatformView();
+#elif ANDROID
+	public Android.Content.Context Context { get; set; }
+
+	public virtual Android.Views.View GetPlatformView()
+		=> PlatformViewChannel?.GetPlatformView(Context);
+#endif
 }

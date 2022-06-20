@@ -2,20 +2,20 @@
 
 	<PropertyGroup>
 		<!--<TargetFrameworks>net6.0-ios;net6.0-maccatalyst;net6.0-android</TargetFrameworks>-->
-		<TargetFrameworks>net6.0-android</TargetFrameworks>
+		<TargetFrameworks>net6.0-android;net6.0-ios;net6.0-maccatalyst</TargetFrameworks>
 		<ImplicitUsings>enable</ImplicitUsings>
-		<SingleProject>True</SingleProject>
-		<!--<EnableDefaultCompileItems>False</EnableDefaultCompileItems>-->
+		<EnableDefaultCompileItems>True</EnableDefaultCompileItems>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(TargetFramework)' == 'net6.0-android'">
 		<SupportedOSPlatformVersion>21</SupportedOSPlatformVersion>
 	</PropertyGroup>
 
-	<ItemGroup>
+	<ItemGroup Condition="'$(TargetFramework)' == 'net6.0-android'">
 	  <ProjectReference Include="..\Microsoft.PlatformChannels.Binding\Microsoft.PlatformChannels.Binding.csproj" />
-
-	  <!--<Compile Include="**/*.shared.cs" />-->
+	</ItemGroup>
+	<ItemGroup Condition="'$(TargetFramework)' == 'net6.0-ios' or '$(TargetFramework)' == 'net6.0-maccatalyst'">
+	  <ProjectReference Include="..\Microsoft.PlatformChannels.Binding.Apple\Microsoft.PlatformChannels.Binding.Apple.csproj" />
 	</ItemGroup>
 	<ItemGroup>
 
