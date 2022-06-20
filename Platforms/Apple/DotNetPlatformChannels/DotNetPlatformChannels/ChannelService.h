@@ -14,7 +14,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 +(Channel<ChannelMessageHandler>*) create:(NSString*)channelId;
 
-@property (nonatomic, weak) id <ChannelProvider> channelProvider;
+
+
+@property (class, nonatomic, weak) id <ChannelProvider> channelProvider;
 
 
 @end
