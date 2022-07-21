@@ -1,0 +1,1 @@
+../MacCatalyst/PlatformChannelViewHandler.cs

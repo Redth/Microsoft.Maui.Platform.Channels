@@ -12,8 +12,7 @@ This project is built upon a native library, one for iOS and another for Android
 Those native libraries are bound in binding projects to be callable from c#:
 
 - Android: Microsoft.PlatformChannels.Binding/Microsoft.PlatformChannels.Binding.csproj
-  - There are some iOS references here, but it is not used on iOS today
-- iOS: Microsoft.PlatformChannels.Binding.Apple/Microsoft.PlatformChannels.Binding.Apple.csproj
+- iOS: Platforms/Apple/Microsoft.PlatformChannels.Binding.Apple/Microsoft.PlatformChannels.Binding.Apple.csproj
 
 The PlatformChannel abstraction is built using C# (leveraging those native libraries) in two layers:
 

@@ -13,8 +13,6 @@
 
   <PropertyGroup Condition="'$(TargetFramework)' == 'net6.0-ios' OR '$(TargetFramework)' == 'net6.0-maccatalyst' ">
       <IsBindingProject>True</IsBindingProject>
-      <!--<NoBindingEmbedding>true</NoBindingEmbedding>-->
-	  <!--<SupportedOSPlatformVersion>10.0</SupportedOSPlatformVersion>-->
   </PropertyGroup>
 
   <ItemGroup Condition="'$(TargetFramework)' == 'net6.0-android'">
@@ -22,9 +20,7 @@
   </ItemGroup>
 
   <ItemGroup Condition="'$(TargetFramework)' == 'net6.0-ios' OR '$(TargetFramework)' == 'net6.0-maccatalyst' ">
-    <!--<Compile Include="ApiAdditions.cs" />-->
-    <NativeReference Include="..\Platforms\Apple\DotNetPlatformChannels\build\DotNetPlatformChannels.xcframework\ios-arm64_x86_64-simulator\DotNetPlatformChannels.framework">
-        <!--<Link>DotNetPlatformChannels.xcframework</Link>-->
+    <NativeReference Include="..\Platforms\Apple\DotNetPlatformChannels\build\DotNetPlatformChannels.xcframework">
         <Kind>Framework</Kind>
         <Frameworks></Frameworks>
     </NativeReference>
