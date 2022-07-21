@@ -1,8 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<!--<TargetFrameworks>net6.0-maccatalyst;net6.0-ios;net6.0-android</TargetFrameworks>-->
-		<TargetFrameworks>net6.0-android</TargetFrameworks>
+		<TargetFrameworks>net6.0-android;net6.0-ios;net6.0-maccatalyst</TargetFrameworks>
 <!--		<TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('windows')) and '$(MSBuildRuntimeType)' == 'Full'">$(TargetFrameworks);net6.0-windows10.0.19041</TargetFrameworks>-->
 		<OutputType>Exe</OutputType>
 		<RootNamespace>SamplePlatformChannels</RootNamespace>
@@ -42,12 +41,18 @@
 	
 	<ItemGroup Condition="$(TargetFramework.Contains('-android'))">
 		<AndroidLibrary Include="..\Platforms\Android\sample\build\outputs\aar\sample-debug.aar" Link="sample.aar" Bind="false" />
+		<ProjectReference Include="..\Microsoft.PlatformChannels.Binding\Microsoft.PlatformChannels.Binding.csproj" />
 	</ItemGroup>
-
+	<ItemGroup Condition="'$(TargetFramework)' == 'net6.0-ios'">
+		<NativeReference Include="/Users/donblas/Programming/Projects/Microsoft.Maui.Platform.Channels/Platforms/Apple/Sample/build/Debug-iphonesimulator/Sample.framework"  Kind="Framework"  />
+	</ItemGroup>
+	<ItemGroup Condition="'$(TargetFramework)' == 'net6.0-maccatalyst'">
+		<NativeReference Include="/Users/donblas/Programming/Projects/Microsoft.Maui.Platform.Channels/Platforms/Apple/Sample/build/Debug-maccatalyst/Sample.framework"  Kind="Framework"  />
+	</ItemGroup>
+	
 	<ItemGroup>
 		<ProjectReference Include="..\Microsoft.Maui.PlatformChannels\Microsoft.Maui.PlatformChannels.csproj" />
 		<ProjectReference Include="..\Microsoft.PlatformChannels\Microsoft.PlatformChannels.csproj" />
-		<ProjectReference Include="..\Microsoft.PlatformChannels.Binding\Microsoft.PlatformChannels.Binding.csproj" />
 	</ItemGroup>
 
 </Project>

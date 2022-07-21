@@ -43,7 +43,7 @@ public partial class ViewChannel : PlatformObject, IPlatformChannelMessageHandle
 
 #if IOS || MACCATALYST
 	public virtual UIKit.UIView GetPlatformView()
-		=> (PlatformViewChannel as Microsoft.PlatformChannels.Platform.IChannelViewProvider)?.GetPlatformView();
+		=> PlatformViewChannel?.GetPlatformView();
 #elif ANDROID
 	public Android.Content.Context Context { get; set; }
 

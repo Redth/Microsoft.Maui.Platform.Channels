@@ -15,7 +15,7 @@
 	  <ProjectReference Include="..\Microsoft.PlatformChannels.Binding\Microsoft.PlatformChannels.Binding.csproj" />
 	</ItemGroup>
 	<ItemGroup Condition="'$(TargetFramework)' == 'net6.0-ios' or '$(TargetFramework)' == 'net6.0-maccatalyst'">
-	  <ProjectReference Include="..\Microsoft.PlatformChannels.Binding.Apple\Microsoft.PlatformChannels.Binding.Apple.csproj" />
+	  <ProjectReference Include="..\Platforms\Apple\Microsoft.PlatformChannels.Binding.Apple\Microsoft.PlatformChannels.Binding.Apple.csproj" />
 	</ItemGroup>
 	<ItemGroup>
 
