@@ -44,10 +44,10 @@
 		<ProjectReference Include="..\Microsoft.PlatformChannels.Binding\Microsoft.PlatformChannels.Binding.csproj" />
 	</ItemGroup>
 	<ItemGroup Condition="'$(TargetFramework)' == 'net6.0-ios'">
-		<NativeReference Include="/Users/donblas/Programming/Projects/Microsoft.Maui.Platform.Channels/Platforms/Apple/Sample/build/Debug-iphonesimulator/Sample.framework"  Kind="Framework"  />
+		<NativeReference Include="..\Platforms\Apple\Sample\build\Debug-iphonesimulator\Sample.framework"  Kind="Framework"  />
 	</ItemGroup>
 	<ItemGroup Condition="'$(TargetFramework)' == 'net6.0-maccatalyst'">
-		<NativeReference Include="/Users/donblas/Programming/Projects/Microsoft.Maui.Platform.Channels/Platforms/Apple/Sample/build/Debug-maccatalyst/Sample.framework"  Kind="Framework"  />
+		<NativeReference Include="..\Platforms\Apple\Sample\build\Debug-maccatalyst\Sample.framework"  Kind="Framework"  />
 	</ItemGroup>
 	
 	<ItemGroup>
