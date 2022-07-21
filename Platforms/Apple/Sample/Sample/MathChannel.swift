@@ -8,16 +8,14 @@
 import Foundation
 import DotNetPlatformChannels
 
-class MathChannel : Channel, ChannelMessageHandler {
-    
-    func onChannelMessage(_ messageId: String, withArgs args: [Any]?) -> Any? {
+class MathChannel : Channel {
+    override func onChannelMessage (_ messageId: NSString, withArgs args: [NSObject]) -> NSObject? {
         let result = NSObject()
 
         if (messageId == "add") {
-            
-            if let a = args![0] as? NSNumber {
-                if let b = args![1] as? NSNumber {
-                    return a.decimalValue + b.decimalValue
+            if let a = args[0] as? NSNumber {
+                if let b = args[1] as? NSNumber {
+                    return NSNumber(value: a.doubleValue + b.doubleValue)
                 }
             }
         }
