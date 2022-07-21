@@ -21,6 +21,7 @@ public partial class PlatformChannelViewHandler : ViewHandler<IPlatformChannelVi
 	protected override UIKit.UIView CreatePlatformView()
 	{
 		if (viewGroup is null) {
+			// TODO - Fix this hard coded size
 			viewGroup = new UIView(new CoreGraphics.CGRect(0, 0, 400, 100));
 		}
 		EnsureChannelCreated();
