@@ -1,4 +1,4 @@
-name: Android Native
+name: Mac / iOS Native
 
 on:
   pull_request:
