@@ -17,7 +17,9 @@ jobs:
 
       - name: Build
         run: |
-          make -C Platforms/Apple/DotNetPlatformChannels
+          xcodebuild -showsdks
+          cd ./Platforms/Apple/DotNetPlatformChannels
+          make
 
       - name: Artifacts
         uses: actions/upload-artifact@v3
