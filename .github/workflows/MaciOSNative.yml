@@ -1,0 +1,26 @@
+name: Android Native
+
+on:
+  pull_request:
+  push:
+  release:
+    types: [published]
+
+jobs:
+  build:
+
+    name: Build Apple Library
+    runs-on: macos-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Build
+        run: |
+          make -C Platforms/Apple/DotNetPlatformChannels
+
+      - name: Artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: DotNetPlatformChannels.xcframework
+          path: ./Platforms/Apple/DotNetPlatformChannels/build/DotNetPlatformChannels.xcframework
