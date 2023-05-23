@@ -16,7 +16,8 @@ jobs:
 
       - name: Build
         run: |
-          ./Platforms/Android/gradlew :platformchannels:publishReleaseToArtifactsRepository
+          cd ./Platforms/Android
+          ./gradlew platformchannels:publishReleasePublicationToArtifactsRepository
 
       - name: Artifacts
         uses: actions/upload-artifact@v3
