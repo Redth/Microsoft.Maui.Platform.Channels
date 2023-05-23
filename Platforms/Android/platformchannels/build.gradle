@@ -4,13 +4,17 @@ plugins {
 apply plugin: 'maven-publish'
 
 android {
-    compileSdk 31
+    compileSdk 33
 
     defaultConfig {
         minSdk 21
-        targetSdk 31
+        targetSdk 33
 
         consumerProguardFiles "consumer-rules.pro"
+
+        aarMetadata {
+            minCompileSdk = 21
+        }
     }
 
     buildTypes {
@@ -59,15 +63,26 @@ afterEvaluate {
             // Creates a Maven publication called "release".
             release(MavenPublication) {
                 // Applies the component for the release build variant.
-                from components.release
+                //from components.release
 
                 // You can then customize attributes of the publication as shown below.
                 groupId = 'com.microsoft.dotnet'
                 artifactId = 'platform-channels'
                 version = '0.1'
+
+                afterEvaluate {
+                    from components.release
+                }
             }
 
 
+        }
+
+        repositories {
+            maven {
+                name = 'artifacts'
+                url = "${project.buildDir}/../../../../artifacts/maven"
+            }
         }
     }
 }
