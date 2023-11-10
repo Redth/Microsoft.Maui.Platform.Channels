@@ -13,8 +13,10 @@ import org.gradle.api.provider.SetProperty;
 import org.gradle.api.tasks.Input;
 import org.gradle.api.tasks.InputFiles;
 import org.gradle.api.tasks.Nested;
+import org.gradle.api.tasks.Optional;
 import org.gradle.api.tasks.OutputFile;
 import org.gradle.api.tasks.TaskAction;
+import org.gradle.api.tasks.options.Option;
 import org.gradle.internal.component.external.model.DefaultModuleComponentIdentifier;
 
 import java.io.File;
@@ -27,7 +29,12 @@ import java.util.List;
 public abstract class DotNetInteropResolveArtifactsTask extends DefaultTask {
 
     @OutputFile
-    public abstract RegularFileProperty getResolvedArtifactsOutput();
+    public abstract Property<File> getResolvedArtifactsOutput();
+
+    @Option(option = "outputfile", description = "Sets the output file to print the dependency information to")
+    @Input
+    @Optional
+    public abstract Property<String> getOptionalOutputFilePath();
 
     @Input
     public abstract ListProperty<ResolvedArtifactInfo> getResolvedArtifacts();
@@ -48,7 +55,7 @@ public abstract class DotNetInteropResolveArtifactsTask extends DefaultTask {
         var resolvedArtifacts = this.getResolvedArtifacts().get();
 
         try {
-            outputFile = getResolvedArtifactsOutput().get().getAsFile();
+            outputFile = getResolvedArtifactsOutput().get();
             Files.deleteIfExists(outputFile.toPath());
             if (!outputFile.exists()) {
                 Files.createFile(outputFile.toPath());

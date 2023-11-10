@@ -4,6 +4,7 @@ import org.gradle.api.Plugin;
 import org.gradle.api.Project;
 import org.gradle.api.Transformer;
 import org.gradle.api.artifacts.result.ResolvedArtifactResult;
+import org.gradle.api.file.RegularFile;
 import org.gradle.api.model.ObjectFactory;
 import org.gradle.internal.component.external.model.DefaultModuleComponentIdentifier;
 
@@ -16,13 +17,33 @@ public class DotNetInteropPlugin implements Plugin<Project> {
 
         // Register our task
         project.getTasks().register("dotnetInteropResolveArtifacts", DotNetInteropResolveArtifactsTask.class, task -> {
-            task.getResolvedArtifactsOutput().set(project.getLayout().getBuildDirectory().file("dotnetInteropResolvedArtifacts.txt"));
+
+            java.io.File outputFile;
+
+            var optionalFile = "";
+            if (task.getOptionalOutputFilePath().isPresent())
+                optionalFile = task.getOptionalOutputFilePath().get();
+
+            if (optionalFile != null && !optionalFile.isEmpty())
+            {
+                outputFile = new java.io.File(optionalFile);
+                System.out.println("SETTING OPTIONAL FILE: " + outputFile);
+            }
+            else
+            {
+                outputFile = project.getLayout().getBuildDirectory().file("dotnetInteropResolvedArtifacts.txt").get().getAsFile();
+            }
+
+            task.getResolvedArtifactsOutput().set(outputFile);
 
             // Get the right config
             var configs = project.getConfigurations();
-            var runtimeClasspath = configs.getByName("debugRuntimeClasspath");
+            var impl = configs.getByName("implementation");
+            impl.setCanBeResolved(true);
 
-            task.getResolvedArtifacts().set(runtimeClasspath.getIncoming().getArtifacts().getResolvedArtifacts().map(new ResolvedArtifactInfoTransformer(project.getObjects())));
+            var resolvedArtifacts = impl.getIncoming().getArtifacts().getResolvedArtifacts();
+
+            task.getResolvedArtifacts().set(resolvedArtifacts.map(new ResolvedArtifactInfoTransformer(project.getObjects())));
             task.resolveArtifacts();
 
         });
