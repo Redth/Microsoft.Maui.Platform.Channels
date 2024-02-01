@@ -1,0 +1,8 @@
+<Project>
+
+  <PropertyGroup>
+    <DirectoryBuildPropsImported>true</DirectoryBuildPropsImported>
+    <BuildAppleDevCertDependencies Condition="'$(BuildAppleDevCertDependencies)' == ''">false</BuildAppleDevCertDependencies>
+  </PropertyGroup>
+
+</Project>

@@ -1,26 +1,32 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFrameworks>net6.0-android;net6.0-ios;net6.0-maccatalyst</TargetFrameworks>
+		<TargetFrameworks>net8.0-android;net8.0-ios;net8.0-maccatalyst</TargetFrameworks>
 		<UseMaui>true</UseMaui>
 		<SingleProject>true</SingleProject>
 		<ImplicitUsings>enable</ImplicitUsings>
 	</PropertyGroup>
 
-	<PropertyGroup Condition="'$(TargetFramework)' == 'net6.0-android'">
+	<PropertyGroup Condition=" '$(TargetPlatformIdentifier)' == 'android' ">
 		<SupportedOSPlatformVersion>21</SupportedOSPlatformVersion>
 	</PropertyGroup>
 
 	<ItemGroup>
-		<None Remove="Controls\" />
+		<PackageReference Include="Microsoft.Maui.Controls" Version="$(MauiVersion)" />
+		<PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="$(MauiVersion)" />
+		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="8.0.0" />
 	</ItemGroup>
+
 	<ItemGroup>
+		<None Remove="Controls\" />
 		<ProjectReference Include="..\Microsoft.PlatformChannels\Microsoft.PlatformChannels.csproj" />
 	</ItemGroup>
-	<ItemGroup Condition="$(TargetFramework.Contains('-android'))">
+
+	<ItemGroup Condition=" '$(TargetPlatformIdentifier)' == 'android' ">
 		<ProjectReference Include="..\Microsoft.PlatformChannels.Binding\Microsoft.PlatformChannels.Binding.csproj" />
 	</ItemGroup>
-	<ItemGroup Condition="'$(TargetFramework)' == 'net6.0-ios' OR '$(TargetFramework)' == 'net6.0-maccatalyst'">
+
+	<ItemGroup Condition=" '$(TargetPlatformIdentifier)' == 'ios' or '$(TargetPlatformIdentifier)' == 'maccatalyst' ">
 		<ProjectReference Include="..\Platforms\Apple\Microsoft.PlatformChannels.Binding.Apple\Microsoft.PlatformChannels.Binding.Apple.csproj" />
 	</ItemGroup>
 

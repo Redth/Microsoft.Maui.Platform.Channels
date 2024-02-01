@@ -1,13 +1,14 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFrameworks>net6.0-android;net6.0-ios;net6.0-maccatalyst</TargetFrameworks>
-<!--		<TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('windows')) and '$(MSBuildRuntimeType)' == 'Full'">$(TargetFrameworks);net6.0-windows10.0.19041</TargetFrameworks>-->
+		<TargetFrameworks>net8.0-ios</TargetFrameworks>
+		<!--TargetFrameworks>net8.0-android;net8.0-ios;net8.0-maccatalyst</TargetFrameworks-->
 		<OutputType>Exe</OutputType>
 		<RootNamespace>SamplePlatformChannels</RootNamespace>
 		<UseMaui>true</UseMaui>
 		<SingleProject>true</SingleProject>
 		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
 
 		<!-- Display name -->
 		<ApplicationTitle>SamplePlatformChannels</ApplicationTitle>
@@ -16,13 +17,12 @@
 		<ApplicationId>com.companyname.sampleplatformchannels</ApplicationId>
 
 		<!-- Versions -->
+		<ApplicationDisplayVersion>1.0</ApplicationDisplayVersion>
 		<ApplicationVersion>1</ApplicationVersion>
 
-		<SupportedOSPlatformVersion Condition="'$(TargetFramework)' == 'net6.0-ios'">14.2</SupportedOSPlatformVersion>
-		<SupportedOSPlatformVersion Condition="'$(TargetFramework)' == 'net6.0-maccatalyst'">14.0</SupportedOSPlatformVersion>
-		<SupportedOSPlatformVersion Condition="'$(TargetFramework)' == 'net6.0-android'">21.0</SupportedOSPlatformVersion>
-		<SupportedOSPlatformVersion Condition="$(TargetFramework.Contains('-windows'))">10.0.17763.0</SupportedOSPlatformVersion>
-		<TargetPlatformMinVersion Condition="$(TargetFramework.Contains('-windows'))">10.0.17763.0</TargetPlatformMinVersion>
+		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'ios'">11.0</SupportedOSPlatformVersion>
+		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'maccatalyst'">13.1</SupportedOSPlatformVersion>
+		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">23.0</SupportedOSPlatformVersion>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -39,20 +39,22 @@
 		<MauiFont Include="Resources\Fonts\*" />
 	</ItemGroup>
 	
-	<ItemGroup Condition="$(TargetFramework.Contains('-android'))">
+	<ItemGroup>
+		<PackageReference Include="Microsoft.Maui.Controls" Version="$(MauiVersion)" />
+		<PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="$(MauiVersion)" />
+		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="8.0.0" />
+		<ProjectReference Include="..\Microsoft.Maui.PlatformChannels\Microsoft.Maui.PlatformChannels.csproj" />
+	</ItemGroup>
+
+	<ItemGroup Condition=" '$(TargetPlatformIdentifier)' == 'android' ">
 		<AndroidLibrary Include="..\Platforms\Android\sample\build\outputs\aar\sample-debug.aar" Link="sample.aar" Bind="false" />
 		<ProjectReference Include="..\Microsoft.PlatformChannels.Binding\Microsoft.PlatformChannels.Binding.csproj" />
 	</ItemGroup>
-	<ItemGroup Condition="'$(TargetFramework)' == 'net6.0-ios'">
+	<ItemGroup Condition=" '$(TargetPlatformIdentifier)' == 'ios' ">
 		<NativeReference Include="..\Platforms\Apple\Sample\build\Debug-iphonesimulator\Sample.framework"  Kind="Framework"  />
 	</ItemGroup>
-	<ItemGroup Condition="'$(TargetFramework)' == 'net6.0-maccatalyst'">
+	<ItemGroup Condition=" '$(TargetPlatformIdentifier)' == 'maccatalyst' ">
 		<NativeReference Include="..\Platforms\Apple\Sample\build\Debug-maccatalyst\Sample.framework"  Kind="Framework"  />
-	</ItemGroup>
-	
-	<ItemGroup>
-		<ProjectReference Include="..\Microsoft.Maui.PlatformChannels\Microsoft.Maui.PlatformChannels.csproj" />
-		<ProjectReference Include="..\Microsoft.PlatformChannels\Microsoft.PlatformChannels.csproj" />
 	</ItemGroup>
 
 </Project>
