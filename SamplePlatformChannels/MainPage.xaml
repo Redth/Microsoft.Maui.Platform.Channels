@@ -2,20 +2,40 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:channels="clr-namespace:Microsoft.Maui.PlatformChannels.Controls;assembly=Microsoft.Maui.PlatformChannels"
              x:Class="SamplePlatformChannels.MainPage"
-             BackgroundColor="{DynamicResource SecondaryColor}">
+             BackgroundColor="{DynamicResource Secondary}">
 
     <VerticalStackLayout Padding="20">
+        <Entry
+            x:Name="entryNumbers"
+            PlaceholderColor="{DynamicResource Gray400}"
+            Placeholder="Numbers to add..." />
 
-        <Entry x:Name="entryNumbers" Placeholder="Numbers to add..." />
+        <Button
+            Clicked="Button_Clicked"
+            Text="Add" />
 
-        <Button Clicked="Button_Clicked" Text="Add" />
+        <Label
+            Text="Result"
+            Style="{StaticResource Headline}" />
 
-        <Label Text="Result" FontAttributes="Bold" FontSize="20" />
-        <Label Text="0" x:Name="labelResult" FontSize="18" />
+        <Label
+            Text="0"
+            x:Name="labelResult"
+            Style="{StaticResource SubHeadline}" />
 
-		<Label Text="Platform Views" FontSize="20" Margin="0,20,0,0" />
-		<channels:PlatformChannelView x:Name="labelViewChannel" ChannelTypeId="labelView" OnReceiveFromPlatform="PlatformChannelView_OnReceiveFromPlatform" />
+        <Label
+            Text="Platform Views"
+            Style="{StaticResource Headline}"
+            Margin="0,20,0,0" />
 
-		<channels:PlatformChannelView x:Name="labelViewChannel2" ChannelTypeId="labelView" />
-	</VerticalStackLayout>
+        <channels:PlatformChannelView
+            x:Name="labelViewChannel"
+            ChannelTypeId="labelView"
+            OnReceiveFromPlatform="PlatformChannelView_OnReceiveFromPlatform" />
+
+        <channels:PlatformChannelView
+            x:Name="labelViewChannel2"
+            ChannelTypeId="labelView" />
+    </VerticalStackLayout>
+
 </ContentPage>

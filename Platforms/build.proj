@@ -10,57 +10,50 @@
 
   <Target Name="BuildAndroid" >
     <Exec
-        Command="./gradlew assemble"
+        Command="./gradlew assemble publish --info"
         WorkingDirectory="$(MSBuildThisFileDirectory)Android"
         EnvironmentVariables="ANDROID_HOME=$(AndroidSdkDirectory)" />
   </Target>
 
   <Target Name="BuildApple" >
     <RemoveDir Directories="$(MSBuildThisFileDirectory)Apple/DotNetPlatformChannels/build" />
-    <!--Exec
+    <Exec
         Command="xcodebuild -configuration $(Configuration) -sdk iphoneos"
-        WorkingDirectory="$(MSBuildThisFileDirectory)Apple/DotNetPlatformChannels"
-        EnvironmentVariables="" /-->
+        WorkingDirectory="$(MSBuildThisFileDirectory)Apple/DotNetPlatformChannels" />
 
     <Exec
         Command="xcodebuild -configuration $(Configuration) -sdk iphonesimulator"
-        WorkingDirectory="$(MSBuildThisFileDirectory)Apple/DotNetPlatformChannels"
-        EnvironmentVariables="" />
+        WorkingDirectory="$(MSBuildThisFileDirectory)Apple/DotNetPlatformChannels" />
 
-    <!--Exec
+    <Exec
         Command="xcodebuild -configuration $(Configuration) -destination 'platform=macOS,variant=Mac Catalyst' -scheme DotNetPlatformChannels SYMROOT=$(MSBuildThisFileDirectory)Apple/DotNetPlatformChannels/build"
-        WorkingDirectory="$(MSBuildThisFileDirectory)Apple/DotNetPlatformChannels"
-        EnvironmentVariables="" /-->
+        WorkingDirectory="$(MSBuildThisFileDirectory)Apple/DotNetPlatformChannels" />
 
     <ItemGroup>
       <_CreateXcFxArgs Include="-create-xcframework" />
-      <!--_CreateXcFxArgs Include="-framework $(MSBuildThisFileDirectory)Apple/DotNetPlatformChannels/build/$(Configuration)-iphoneos/DotNetPlatformChannels.framework" /-->
+      <_CreateXcFxArgs Include="-framework $(MSBuildThisFileDirectory)Apple/DotNetPlatformChannels/build/$(Configuration)-iphoneos/DotNetPlatformChannels.framework" />
       <_CreateXcFxArgs Include="-framework $(MSBuildThisFileDirectory)Apple/DotNetPlatformChannels/build/$(Configuration)-iphonesimulator/DotNetPlatformChannels.framework" />
-      <!--_CreateXcFxArgs Include="-framework $(MSBuildThisFileDirectory)Apple/DotNetPlatformChannels/build/$(Configuration)-maccatalyst/DotNetPlatformChannels.framework" /-->
+      <_CreateXcFxArgs Include="-framework $(MSBuildThisFileDirectory)Apple/DotNetPlatformChannels/build/$(Configuration)-maccatalyst/DotNetPlatformChannels.framework" />
       <_CreateXcFxArgs Include="-output $(MSBuildThisFileDirectory)Apple/DotNetPlatformChannels/build/DotNetPlatformChannels.xcframework" />
     </ItemGroup>
     <Exec
         Command="xcodebuild @(_CreateXcFxArgs, ' ')"
-        WorkingDirectory="$(MSBuildThisFileDirectory)Apple/DotNetPlatformChannels"
-        EnvironmentVariables="" />
+        WorkingDirectory="$(MSBuildThisFileDirectory)Apple/DotNetPlatformChannels" />
   </Target>
 
 <Target Name="BuildAppleSample" >
     <RemoveDir Directories="$(MSBuildThisFileDirectory)Apple/Sample/build" />
     <Exec
         Command="xcodebuild -configuration $(Configuration) -sdk iphonesimulator"
-        WorkingDirectory="$(MSBuildThisFileDirectory)Apple/Sample"
-        EnvironmentVariables="" />
+        WorkingDirectory="$(MSBuildThisFileDirectory)Apple/Sample" />
 
-    <!--Exec
+    <Exec
         Command="xcodebuild -configuration $(Configuration) -destination 'platform=macOS,variant=Mac Catalyst' -scheme Sample SYMROOT=$(MSBuildThisFileDirectory)Apple/Sample/build"
-        WorkingDirectory="$(MSBuildThisFileDirectory)Apple/Sample"
-        EnvironmentVariables="" /-->
+        WorkingDirectory="$(MSBuildThisFileDirectory)Apple/Sample" />
 
-    <!--Exec
+    <Exec
         Command="dotnet build -v:n Microsoft.PlatformChannels.Binding.Apple.csproj -c $(Configuration)"
-        WorkingDirectory="$(MSBuildThisFileDirectory)Apple/Microsoft.PlatformChannels.Binding.Apple"
-        EnvironmentVariables="" /-->
+        WorkingDirectory="$(MSBuildThisFileDirectory)Apple/Microsoft.PlatformChannels.Binding.Apple" />
   </Target>
 
 </Project>

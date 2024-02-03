@@ -22,7 +22,9 @@ A simple bridge for messaging between .NET and iOS/MacCatalyst/Android Platforms
 
  4. Run the sample
     ```shell
+        dotnet build SamplePlatformChannels/SamplePlatformChannels.csproj -t:Run -f net8.0-android
         dotnet build SamplePlatformChannels/SamplePlatformChannels.csproj -t:Run -f net8.0-ios
+        dotnet build SamplePlatformChannels/SamplePlatformChannels.csproj -t:Run -f net8.0-maccatalyst
     ```
 
 

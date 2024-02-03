@@ -14,13 +14,15 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
+      - uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: 8.x
+
       - name: Build
-        run: |
-          cd ./Platforms/Android
-          ./gradlew platformchannels:publishReleasePublicationToArtifactsRepository
+        run: dotnet build Platforms/build.proj -t:BuildAndroid
 
       - name: Artifacts
         uses: actions/upload-artifact@v3
         with:
           name: Maven
-          path: ./artifacts/maven/
+          path: ./Platforms/android/platformchannels/build/repo

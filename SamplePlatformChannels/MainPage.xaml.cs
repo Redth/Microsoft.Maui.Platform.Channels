@@ -45,6 +45,6 @@ public partial class MainPage : ContentPage
 
 	private object PlatformChannelView_OnReceiveFromPlatform(string messageId, object parameters)
 	{
-		return null;
+		return new object();
 	}
 }
