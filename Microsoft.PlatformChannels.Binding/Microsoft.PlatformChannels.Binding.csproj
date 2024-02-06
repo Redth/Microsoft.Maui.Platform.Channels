@@ -1,29 +1,18 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <!--<TargetFrameworks>net6.0-android;net6.0-ios;net6.0-maccatalyst</TargetFrameworks>-->
-	<TargetFrameworks>net6.0-android</TargetFrameworks>
+    <TargetFrameworks>net8.0-android</TargetFrameworks>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <EnableDefaultCompileItems>False</EnableDefaultCompileItems>
     <RootNamespace>Microsoft.PlatformChannels.Platform</RootNamespace>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(TargetFramework)' == 'net6.0-android'">
+
+  <PropertyGroup Condition=" '$(TargetPlatformIdentifier)' == 'android' ">
 	  <SupportedOSPlatformVersion>21</SupportedOSPlatformVersion>
   </PropertyGroup>
 
-  <PropertyGroup Condition="'$(TargetFramework)' == 'net6.0-ios' OR '$(TargetFramework)' == 'net6.0-maccatalyst' ">
-      <IsBindingProject>True</IsBindingProject>
-  </PropertyGroup>
-
-  <ItemGroup Condition="'$(TargetFramework)' == 'net6.0-android'">
+  <ItemGroup Condition=" '$(TargetPlatformIdentifier)' == 'android' ">
     <AndroidLibrary Include="..\Platforms\Android\platformchannels\build\outputs\aar\platformchannels-debug.aar" Link="platformchannels.aar" />
   </ItemGroup>
 
-  <ItemGroup Condition="'$(TargetFramework)' == 'net6.0-ios' OR '$(TargetFramework)' == 'net6.0-maccatalyst' ">
-    <NativeReference Include="..\Platforms\Apple\DotNetPlatformChannels\build\DotNetPlatformChannels.xcframework">
-        <Kind>Framework</Kind>
-        <Frameworks></Frameworks>
-    </NativeReference>
-    <ObjcBindingApiDefinition Include="ApiDefinitions.cs" />
-  </ItemGroup>
 </Project>

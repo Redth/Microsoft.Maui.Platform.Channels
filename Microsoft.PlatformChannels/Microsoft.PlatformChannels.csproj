@@ -1,24 +1,24 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<!--<TargetFrameworks>net6.0-ios;net6.0-maccatalyst;net6.0-android</TargetFrameworks>-->
-		<TargetFrameworks>net6.0-android;net6.0-ios;net6.0-maccatalyst</TargetFrameworks>
+		<TargetFrameworks>net8.0-android;net8.0-ios;net8.0-maccatalyst</TargetFrameworks>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<EnableDefaultCompileItems>True</EnableDefaultCompileItems>
 	</PropertyGroup>
 
-	<PropertyGroup Condition="'$(TargetFramework)' == 'net6.0-android'">
+	<PropertyGroup Condition=" '$(TargetPlatformIdentifier)' == 'android' ">
 		<SupportedOSPlatformVersion>21</SupportedOSPlatformVersion>
 	</PropertyGroup>
 
-	<ItemGroup Condition="'$(TargetFramework)' == 'net6.0-android'">
+	<ItemGroup Condition=" '$(TargetPlatformIdentifier)' == 'android' ">
 	  <ProjectReference Include="..\Microsoft.PlatformChannels.Binding\Microsoft.PlatformChannels.Binding.csproj" />
 	</ItemGroup>
-	<ItemGroup Condition="'$(TargetFramework)' == 'net6.0-ios' or '$(TargetFramework)' == 'net6.0-maccatalyst'">
+
+	<ItemGroup Condition=" '$(TargetPlatformIdentifier)' == 'ios' or '$(TargetPlatformIdentifier)' == 'maccatalyst' ">
 	  <ProjectReference Include="..\Platforms\Apple\Microsoft.PlatformChannels.Binding.Apple\Microsoft.PlatformChannels.Binding.Apple.csproj" />
 	</ItemGroup>
-	<ItemGroup>
 
+	<ItemGroup>
 		<Compile Update="**\*.ios*$(DefaultLanguageSourceExtension)">
 			<ExcludeFromCurrentConfiguration>true</ExcludeFromCurrentConfiguration>
 		</Compile>
@@ -50,7 +50,6 @@
 		<Compile Condition=" '$(TargetPlatformIdentifier)' == 'tizen' " Update="**\*.tizen*$(DefaultLanguageSourceExtension)">
 			<ExcludeFromCurrentConfiguration>False</ExcludeFromCurrentConfiguration>
 		</Compile>
-
 	</ItemGroup>
 
 

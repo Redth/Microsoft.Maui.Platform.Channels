@@ -11,7 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SamplePlatformChannels", "S
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.PlatformChannels.Binding", "Microsoft.PlatformChannels.Binding\Microsoft.PlatformChannels.Binding.csproj", "{84961035-6D61-4E86-9EAD-83240B744181}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.PlatformChannels.Binding.Apple", "Microsoft.PlatformChannels.Binding.Apple\Microsoft.PlatformChannels.Binding.Apple.csproj", "{23793A27-CD0B-46F2-9C9C-B5736D94AB97}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.PlatformChannels.Binding.Apple", "Platforms\Apple\Microsoft.PlatformChannels.Binding.Apple\Microsoft.PlatformChannels.Binding.Apple.csproj", "{23793A27-CD0B-46F2-9C9C-B5736D94AB97}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
